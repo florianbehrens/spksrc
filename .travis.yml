@@ -40,8 +40,8 @@ dist: trusty
 
 script:
   - PKG=${TRAVIS_TAG%%-*}
-  - docker pull synocommunity/spksrc
-  - docker run -it -v `pwd`:/spksrc synocommunity/spksrc /bin/bash -c "cd /spksrc && make setup && cd spk/$PKG && make $SYNOARCH>/dev/null"
+  - docker build -t spksrc-node .
+  - docker run -it -v `pwd`:/spksrc spksrc-node /bin/bash -c "cd /spksrc && make setup && cd spk/$PKG && make $SYNOARCH>/dev/null"
   - ls packages/*.spk
 
 services:
