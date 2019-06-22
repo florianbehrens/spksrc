@@ -10,27 +10,27 @@ COMMENT  = A JavaScript runtime built on Chrome's V8 JavaScript engine.
 LICENSE  = https://github.com/nodejs/node/raw/master/LICENSE
 
 ifeq ($(findstring $(ARCH),$(ARM5_ARCHES)),$(ARCH))
-CONFIGURE_ARGS = --arch=arm
+CONFIGURE_ARGS = --dest-cpu=arm
 endif
 
 ifeq ($(findstring $(ARCH),$(ARM7_ARCHES)),$(ARCH))
-CONFIGURE_ARGS = --arch=arm
+CONFIGURE_ARGS = --dest-cpu=arm
 endif
 
 ifeq ($(findstring $(ARCH),$(ARM8_ARCHES)),$(ARCH))
-CONFIGURE_ARGS += --arch=arm64
+CONFIGURE_ARGS += --dest-cpu=arm64
 endif
 
 ifeq ($(findstring $(ARCH),$(x86_ARCHES)),$(ARCH))
-CONFIGURE_ARGS += --arch=i386
+CONFIGURE_ARGS += --dest-cpu=i386
 endif
 
 ifeq ($(findstring $(ARCH),$(x64_ARCHES)),$(ARCH))
-CONFIGURE_ARGS += --arch=x86_64
+CONFIGURE_ARGS += --dest-cpu=x86_64
 endif
 
 ifeq ($(findstring $(ARCH),$(PPC_ARCHES)),$(ARCH))
-CONFIGURE_ARGS += --arch=ppc
+CONFIGURE_ARGS += --dest-cpu=ppc
 endif
 
 CONFIGURE_ARGS += --cross-compiling --dest-os=linux --prefix=$(INSTALL_PREFIX)
