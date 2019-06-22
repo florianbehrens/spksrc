@@ -9,12 +9,19 @@ HOMEPAGE = http://www.nodejs.org
 COMMENT  = A JavaScript runtime built on Chrome's V8 JavaScript engine.
 LICENSE  = https://github.com/nodejs/node/raw/master/LICENSE
 
+ENV += CC_host="gcc -m32"
+ENV += CXX_host="g++ -m32"
+
+CONFIGURE_ARGS = --cross-compiling --dest-os=linux --prefix=$(INSTALL_PREFIX)
+
+include ../../mk/spksrc.cross-cc.mk
+
 ifeq ($(findstring $(ARCH),$(ARM5_ARCHES)),$(ARCH))
-CONFIGURE_ARGS = --dest-cpu=arm
+CONFIGURE_ARGS += --dest-cpu=arm
 endif
 
 ifeq ($(findstring $(ARCH),$(ARM7_ARCHES)),$(ARCH))
-CONFIGURE_ARGS = --dest-cpu=arm
+CONFIGURE_ARGS += --dest-cpu=arm
 endif
 
 ifeq ($(findstring $(ARCH),$(ARM8_ARCHES)),$(ARCH))
@@ -33,9 +40,3 @@ ifeq ($(findstring $(ARCH),$(PPC_ARCHES)),$(ARCH))
 CONFIGURE_ARGS += --dest-cpu=ppc
 endif
 
-CONFIGURE_ARGS += --cross-compiling --dest-os=linux --prefix=$(INSTALL_PREFIX)
-
-ENV += CC_host="gcc -m32"
-ENV += CXX_host="g++ -m32"
-
-include ../../mk/spksrc.cross-cc.mk
