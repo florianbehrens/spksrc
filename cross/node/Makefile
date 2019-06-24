@@ -6,7 +6,7 @@ PKG_DIST_SITE = https://nodejs.org/dist/v10.15.3
 PKG_DIR = $(PKG_NAME)-$(PKG_VERS)
 
 REQUIRED_DSM = 6.1
-UNSUPPORTED_ARCHS = 88f6281 qoriq rtd1296
+UNSUPPORTED_ARCHS = 88f6281 aarch64 armada37xx qoriq rtd1296
 
 HOMEPAGE = http://www.nodejs.org
 COMMENT  = A JavaScript runtime built on Chrome\'s V8 JavaScript engine.
