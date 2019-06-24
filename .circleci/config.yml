@@ -1,85 +1,17 @@
-# CircleCI config file to build spk package
+# CircleCI config file to build node spk package
 
 version: 2
 
 # make arch-$SYNOARCH always return exit code 0.
 # The "ls" line is to test if SPK has been build.
 
-"-": &build
-  machine:
-    image: ubuntu-1604:201903-01
-  steps:
-    - checkout
-    - run: docker build -t spksrc-node .
-    - run: docker run -it -v `pwd`:/spksrc spksrc-node /bin/bash -c "cd /spksrc && make setup && cd spk/node && make $CIRCLE_JOB"
-    - run: ls -l packages/*.spk
-
 jobs:
-  arch-alpine-6.1:
-    <<: *build
-  arch-apollolake-6.1:
-    <<: *build
-  arch-armada370-6.1:
-    <<: *build
-  arch-armada375-6.1:
-    <<: *build
-  arch-armada38x-6.1:
-    <<: *build
-  arch-armadaxp-6.1:
-    <<: *build
-  arch-avoton-6.1:
-    <<: *build
-  arch-braswell-6.1:
-    <<: *build
-  arch-broadwell-6.1:
-    <<: *build
-  arch-broadwellnk-6.2:
-    <<: *build
-  arch-bromolow-6.1:
-    <<: *build
-  arch-cedarview-6.1:
-    <<: *build
-  arch-comcerto2k-6.1:
-    <<: *build
-  arch-denverton-6.1:
-    <<: *build
-  arch-dockerx64-6.1:
-    <<: *build
-  arch-evansport-6.1:
-    <<: *build
-  arch-grantley-6.1:
-    <<: *build
-  arch-kvmx64-6.1:
-    <<: *build
-  arch-monaco-6.1:
-    <<: *build
-  arch-x64-6.1:
-    <<: *build
-  arch-x86-6.1:
-    <<: *build
-  
-workflows:
-  version: 2
   build:
-    jobs:
-      - arch-alpine-6.1
-      - arch-apollolake-6.1
-      - arch-armada370-6.1
-      - arch-armada375-6.1
-      - arch-armada38x-6.1
-      - arch-armadaxp-6.1
-      - arch-avoton-6.1
-      - arch-braswell-6.1
-      - arch-broadwell-6.1
-      - arch-broadwellnk-6.2
-      - arch-bromolow-6.1
-      - arch-cedarview-6.1
-      - arch-comcerto2k-6.1
-      - arch-denverton-6.1
-      - arch-dockerx64-6.1
-      - arch-evansport-6.1
-      - arch-grantley-6.1
-      - arch-kvmx64-6.1
-      - arch-monaco-6.1
-      - arch-x64-6.1
-      - arch-x86-6.1
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run: docker build -t spksrc-node .
+      - run: docker run -it -v `pwd`:/spksrc spksrc-node /bin/bash -c "cd /spksrc && make setup && cd spk/node && make all-supported"
+      - run: ls -l packages/*.spk
+
