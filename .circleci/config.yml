@@ -11,7 +11,12 @@ jobs:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - run: docker build -t spksrc-node .
-      - run: docker run -it -v `pwd`:/spksrc spksrc-node /bin/bash -c "cd /spksrc && make setup && cd spk/node && make all-supported"
+      - run: docker build -t spksrc-build .
+      - run:
+          command: |
+            PKG=${CIRCLE_BRANCH%%-*}
+            docker run -it -v `pwd`:/spksrc spksrc-build /bin/bash -c "cd /spksrc && make setup && cd spk/$PKG && make all-supported"
       - run: ls -l packages/*.spk
+      - run: sudo pip3 install githubrelease
+      - run: githubrelease asset florianbehrens/spksrc upload $CIRCLE_TAG packages/*.spk
 
