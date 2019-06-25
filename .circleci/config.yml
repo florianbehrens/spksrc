@@ -27,7 +27,7 @@ version: 2
           pip3 install githubrelease
           githubrelease asset florianbehrens/spksrc upload $CIRCLE_TAG packages/*.spk
           EOF
-    - run: docker run -it -v `pwd`:/spksrc spksrc-build /bin/bash ./publish.sh
+    - run: docker run -it -e GITHUB_TOKEN -v `pwd`:/spksrc spksrc-build /bin/bash ./publish.sh
 
 jobs:
   arch-alpine-6.1:
