@@ -10,9 +10,14 @@ version: 2
     image: ubuntu-1604:201903-01
   steps:
     - checkout
-    - run: docker build -t spksrc-node .
-    - run: docker run -it -v `pwd`:/spksrc spksrc-node /bin/bash -c "cd /spksrc && make setup && cd spk/node && make $CIRCLE_JOB"
+    - run: docker build -t spksrc-build .
+    - run:
+        command: |
+          PKG=${CIRCLE_BRANCH%%-*}
+          docker run -it -v `pwd`:/spksrc spksrc-build /bin/bash -c "cd /spksrc && make setup && cd spk/$PKG && make $CIRCLE_JOB"
     - run: ls -l packages/*.spk
+    - run: sudo pip3 install githubrelease
+    - run: githubrelease asset florianbehrens/spksrc upload $CIRCLE_TAG packages/*.spk
 
 jobs:
   arch-alpine-6.1:
