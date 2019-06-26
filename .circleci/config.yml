@@ -16,7 +16,7 @@ version: 2
           cat >build.sh <<EOF
           cd /spksrc
           make setup
-          cd spk/${CIRCLE_BRANCH%%-*}
+          cd spk/node
           make $CIRCLE_JOB
           EOF
     - run: docker run -it -v `pwd`:/spksrc spksrc-build /bin/bash ./build.sh
@@ -25,6 +25,7 @@ version: 2
         command: |
           cat >publish.sh <<EOF
           pip3 install githubrelease
+          echo Uploading assets to GitHub release \"$CIRCLE_TAG\"
           githubrelease asset florianbehrens/spksrc upload $CIRCLE_TAG packages/*.spk
           EOF
     - run: docker run -it -e GITHUB_TOKEN -v `pwd`:/spksrc spksrc-build /bin/bash ./publish.sh
@@ -77,24 +78,88 @@ workflows:
   version: 2
   build:
     jobs:
-      - arch-alpine-6.1
-      - arch-apollolake-6.1
-      - arch-armada370-6.1
-      - arch-armada375-6.1
-      - arch-armada38x-6.1
-      - arch-armadaxp-6.1
-      - arch-avoton-6.1
-      - arch-braswell-6.1
-      - arch-broadwell-6.1
-      - arch-broadwellnk-6.2
-      - arch-bromolow-6.1
-      - arch-cedarview-6.1
-      - arch-comcerto2k-6.1
-      - arch-denverton-6.1
-      - arch-dockerx64-6.1
-      - arch-evansport-6.1
-      - arch-grantley-6.1
-      - arch-kvmx64-6.1
-      - arch-monaco-6.1
-      - arch-x64-6.1
-      - arch-x86-6.1
+      - arch-alpine-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-apollolake-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-armada370-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-armada375-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-armada38x-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-armadaxp-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-avoton-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-braswell-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-broadwell-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-broadwellnk-6.2:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-bromolow-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-cedarview-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-comcerto2k-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-denverton-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-dockerx64-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-evansport-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-grantley-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-kvmx64-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-monaco-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-x64-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-x86-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+
