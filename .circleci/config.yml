@@ -31,6 +31,8 @@ version: 2
     - run: docker run -it -e GITHUB_TOKEN -v `pwd`:/spksrc spksrc-build /bin/bash ./publish.sh
 
 jobs:
+  arch-aarch64-6.1:
+    <<: *build
   arch-alpine-6.1:
     <<: *build
   arch-apollolake-6.1:
@@ -38,6 +40,8 @@ jobs:
   arch-armada370-6.1:
     <<: *build
   arch-armada375-6.1:
+    <<: *build
+  arch-armada37xx-6.2:
     <<: *build
   arch-armada38x-6.1:
     <<: *build
@@ -69,6 +73,8 @@ jobs:
     <<: *build
   arch-monaco-6.1:
     <<: *build
+  arch-rtd1296-6.1:
+    <<: *build
   arch-x64-6.1:
     <<: *build
   arch-x86-6.1:
@@ -78,6 +84,10 @@ workflows:
   version: 2
   build:
     jobs:
+      - arch-aarch64-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
       - arch-alpine-6.1:
           filters:
             tags:
@@ -91,6 +101,10 @@ workflows:
             tags:
               only: /^build-.*/
       - arch-armada375-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-armada37xx-6.2:
           filters:
             tags:
               only: /^build-.*/
@@ -151,6 +165,10 @@ workflows:
             tags:
               only: /^build-.*/
       - arch-monaco-6.1:
+          filters:
+            tags:
+              only: /^build-.*/
+      - arch-rtd1296-6.1:
           filters:
             tags:
               only: /^build-.*/
