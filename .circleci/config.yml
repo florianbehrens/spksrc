@@ -16,7 +16,7 @@ version: 2
           cat >build.sh <<EOF
           cd /spksrc
           make setup
-          cd spk/node
+          cd spk/nodejs
           make $CIRCLE_JOB
           EOF
     - run: docker run -it -v `pwd`:/spksrc spksrc-build /bin/bash ./build.sh
