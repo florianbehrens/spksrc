@@ -1,4 +1,4 @@
-PKG_NAME = node
+PKG_NAME = nodejs
 PKG_VERS = v10.15.3
 PKG_EXT = tar.gz
 PKG_DIST_NAME = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
