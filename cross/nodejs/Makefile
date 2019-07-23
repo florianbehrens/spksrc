@@ -1,7 +1,7 @@
 PKG_NAME = nodejs
 PKG_VERS = v10.15.3
 PKG_EXT = tar.gz
-PKG_DIST_NAME = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
+PKG_DIST_NAME = node-$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = https://nodejs.org/dist/$(PKG_VERS)
 PKG_DIR = $(PKG_NAME)-$(PKG_VERS)
 
